@@ -1,8 +1,7 @@
 {
   "name": "booking-app",
   "version": "0.0.1",
-  "author": "Ionic Framework",
-  "homepage": "https://ionicframework.com/",
+  "author": "Reuel D'silva, Hirshikesh Gawde, Chinmay Khanolkar",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -11,7 +10,7 @@
     "lint": "ng lint",
     "e2e": "ng e2e"
   },
-  "private": true,
+  "private": false,
   "dependencies": {
     "@angular/common": "~8.1.2",
     "@angular/compiler": "~8.1.2",
@@ -57,5 +56,5 @@
     "tslint": "~5.15.0",
     "typescript": "~3.4.3"
   },
-  "description": "An Ionic project"
+  "description": "A Hotel Booking App"
 }

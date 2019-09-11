@@ -1,5 +1,5 @@
 {
-  "appId": "io.ionic.starter",
+  "appId": "com.reuelrds.bookingapp",
   "appName": "Booking App",
   "bundledWebRuntime": false,
   "npmClient": "npm",
