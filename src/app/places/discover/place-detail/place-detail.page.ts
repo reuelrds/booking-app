@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { NavController } from '@ionic/angular';
+import { NavController, ModalController } from '@ionic/angular';
 
 import { Place } from '../../place.model';
 import { PlacesService } from '../../places.service';
+import { CreateBookingComponent } from '../../../bookings/create-booking/create-booking.component';
 
 @Component({
   selector: 'app-place-detail',
@@ -18,7 +19,8 @@ export class PlaceDetailPage implements OnInit {
   constructor(
     private navController: NavController,
     private activatedRoute: ActivatedRoute,
-    private placesService: PlacesService
+    private placesService: PlacesService,
+    private modalController: ModalController
   ) { }
 
   ngOnInit() {
@@ -35,7 +37,11 @@ export class PlaceDetailPage implements OnInit {
   }
 
   onBookPlace() {
-    this.navController.navigateBack('/places/tabs/discover');
+    this.modalController.create({
+      component: CreateBookingComponent
+    }).then(modalEl => {
+      modalEl.present();
+    });
   }
 
 }
