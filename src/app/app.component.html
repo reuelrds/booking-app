@@ -16,20 +16,26 @@
       
       <ion-list lines="none">
         
-        <ion-item>
-          <ion-icon name="business" slot="start"></ion-icon>
-          <ion-label>Discover Places</ion-label>
-        </ion-item>
-        
-        <ion-item>
-          <ion-icon name="checkbox-outline" slot="start"></ion-icon>
-          <ion-label>Your Bookings</ion-label>
-        </ion-item>
-        
-        <ion-item>
-          <ion-icon name="exit" slot="start"></ion-icon>
-          <ion-label>Logout</ion-label>
-        </ion-item>
+        <ion-menu-toggle menu="menu1">
+          <ion-item routerLink="/places/tabs/discover">
+            <ion-icon name="business" slot="start"></ion-icon>
+            <ion-label>Discover Places</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+          
+        <ion-menu-toggle menu="menu1">
+          <ion-item routerLink="/bookings">
+            <ion-icon name="checkbox-outline" slot="start"></ion-icon>
+            <ion-label>Your Bookings</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+          
+        <ion-menu-toggle menu="menu1">
+          <ion-item (click)="onLogout()" button>
+            <ion-icon name="exit" slot="start"></ion-icon>
+            <ion-label>Logout</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
       
       </ion-list>
 
