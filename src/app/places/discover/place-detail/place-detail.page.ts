@@ -10,10 +10,9 @@ import { CreateBookingComponent } from '../../../bookings/create-booking/create-
 @Component({
   selector: 'app-place-detail',
   templateUrl: './place-detail.page.html',
-  styleUrls: ['./place-detail.page.scss'],
+  styleUrls: ['./place-detail.page.scss']
 })
 export class PlaceDetailPage implements OnInit {
-
   place: Place;
 
   constructor(
@@ -21,12 +20,10 @@ export class PlaceDetailPage implements OnInit {
     private activatedRoute: ActivatedRoute,
     private placesService: PlacesService,
     private modalController: ModalController
-  ) { }
+  ) {}
 
   ngOnInit() {
-
     this.activatedRoute.paramMap.subscribe(paramMap => {
-
       if (!paramMap.has('placeId')) {
         this.navController.navigateBack('/offers/tabs/discover');
         return;
@@ -37,11 +34,23 @@ export class PlaceDetailPage implements OnInit {
   }
 
   onBookPlace() {
-    this.modalController.create({
-      component: CreateBookingComponent
-    }).then(modalEl => {
-      modalEl.present();
-    });
-  }
+    this.modalController
+      .create({
+        component: CreateBookingComponent,
+        componentProps: {
+          selectedPlace: this.place
+        }
+      })
+      .then(modalEl => {
+        modalEl.present();
+        return modalEl.onDidDismiss();
+      })
+      .then(result => {
+        console.log(result.data, result.role);
 
+        if (result.role === 'confirm') {
+          console.log('Booked!');
+        }
+      });
+  }
 }
