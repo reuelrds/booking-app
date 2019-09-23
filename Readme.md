@@ -6,7 +6,7 @@ This App allows users to book a room or offer their own place for booking, edit 
 
 
 ## The Design
----
+
 
 **_The Auth Page_** -  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The App starts with a Login Page. This page let's user register or Login. A user must register to use the app.
@@ -48,7 +48,7 @@ This App allows users to book a room or offer their own place for booking, edit 
 
 
 ## To run Locally
----
+
 
 Clone this Repository
 ```bash
