@@ -77,3 +77,5 @@ Open the Developer Tools and Click on Toggle Device Toolbar. Select a device fro
 ```
 
 This creates a folder called **_android_** in th project root. You can open this folder in Android Studio to install or generate the APK file.
+
+**Note -** If you are facing any problems running the above npm scripts, install angular cli and ionic cli globally using `npm install -g @angular/cli` and `npm install -g ionic` respectively and run `ionic serve` to launch the app in a browser. To Build the app use `ng build --prod && ionic capacitor add android && ionic capacitor copy android` to create an Android Studio project which can be used to preivew the app on an emulator or a physical device and also generate the apk. 
