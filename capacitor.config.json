@@ -1,6 +1,6 @@
 {
-  "appId": "com.reuelrds.bookingapp",
-  "appName": "Booking App",
+  "appId": "com.reuelrds.Lodgesy",
+  "appName": "Lodgesy",
   "bundledWebRuntime": false,
   "npmClient": "npm",
   "webDir": "www"
