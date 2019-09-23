@@ -32,3 +32,6 @@ npm-debug.log*
 /resources/ios
 /resources/windows
 /www
+
+
+/android
