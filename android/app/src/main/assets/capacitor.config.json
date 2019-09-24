@@ -1,0 +1,7 @@
+{
+  "appId": "com.reuelrds.lodgesy",
+  "appName": "Lodgesy",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "webDir": "www"
+}
