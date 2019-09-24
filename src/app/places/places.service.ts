@@ -11,7 +11,7 @@ export class PlacesService {
       'p1',
       'Manhattan Mansion',
       'In the heart of New York City',
-      'https://tinyurl.com/yxptpg42',
+      'https://media.architecturaldigest.com/photos/59caa80a839a9e7c5d248e96/16:9/w_2560,c_limit/bon1.jpg',
       149.99
     ),
     new Place(
