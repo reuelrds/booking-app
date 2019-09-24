@@ -2,6 +2,10 @@
   "name": "booking-app",
   "version": "0.0.1",
   "author": "Reuel D'silva, Hirshikesh Gawde, Chinmay Khanolkar",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/reuelrds/booking-app"
+  },
   "scripts": {
     "start": "ionic serve",
     "build": "ng build",
