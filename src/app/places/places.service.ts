@@ -25,7 +25,7 @@ export class PlacesService {
       'p3',
       'The Foggy Palace',
       'Not your average city trip!',
-      'https://tinyurl.com/yx8p7d6a',
+      'https://live.staticflickr.com/4711/26100810738_0f74f58b9b_b.jpg',
       99.99
     )
   ];
