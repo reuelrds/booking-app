@@ -21,7 +21,7 @@ export class OffersPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.offers = this.placesService.get_places();
+    this.offers = this.placesService.places;
   }
 
   onEdit(offerId: string, slidingItem: IonItemSliding) {
