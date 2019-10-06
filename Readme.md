@@ -4,6 +4,13 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This App is a part of Android App Development Project created using [Angular](https://angular.io/) and [Ionic](https://ionicframework.com) Frameworks.  
 This App allows users to book a room or offer their own place for booking, edit and view thier offers or bookings.
 
+- [Lodgesy - A Booking App](#lodgesy---a-booking-app)
+  * [The Design](#the-design)
+  * [To run Locally](#to-run-locally)
+    + [Building the App](#building-the-app)
+
+<small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
+
 
 ## The Design
 
