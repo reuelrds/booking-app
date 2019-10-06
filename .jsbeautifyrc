@@ -1,0 +1,8 @@
+{
+    "end_with_newline": true,
+    "indent_char": " ",
+    "indent_size": 2,
+    "preserve_newlines": true,
+    "wrap_line_length": 80,
+    "wrap_attributes": "force-expand-multiline"
+}
