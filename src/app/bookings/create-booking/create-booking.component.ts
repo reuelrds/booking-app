@@ -48,12 +48,12 @@ export class CreateBookingComponent implements OnInit {
     }
     this.modalCtrl.dismiss(
       {
-        bookindData: {
+        bookingData: {
           firstName: this.form.value.firstName,
           lastName: this.form.value.lastName,
-          guestNumber: this.form.value.guestNumber,
-          startDate: this.form.value.dateFrom,
-          endDate: this.form.value.dateTo
+          guestNumber: +this.form.value.guestNumber,
+          startDate: new Date(this.form.value.dateFrom),
+          endDate: new Date(this.form.value.dateTo)
         }
       },
       'confirm'
