@@ -3,13 +3,14 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-new-offer',
   templateUrl: './new-offer.page.html',
-  styleUrls: ['./new-offer.page.scss'],
+  styleUrls: ['./new-offer.page.scss']
 })
 export class NewOfferPage implements OnInit {
+  constructor() {}
 
-  constructor() { }
+  ngOnInit() {}
 
-  ngOnInit() {
+  onCreateOffer() {
+    console.log('creating offer page');
   }
-
 }
