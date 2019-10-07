@@ -14,7 +14,7 @@
       ></ion-icon>
       <ion-text
         class="space-left"
-      >{{ getDummyDate() | date }}</ion-text>
+      >{{ offer.availableFrom | date }}</ion-text>
       <span class="space-left">to</span>
       <ion-icon
         name="calendar"
@@ -22,7 +22,7 @@
       ></ion-icon>
       <ion-text
         class="space-left"
-      >{{ getDummyDate() | date }}</ion-text>
+      >{{ offer.availableTo | date }}</ion-text>
     </p>
   </ion-label>
 </ion-item>
