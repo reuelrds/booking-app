@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { BehaviorSubject, Observable } from 'rxjs';
-import { take, map } from 'rxjs/operators';
+import { take, map, tap, delay } from 'rxjs/operators';
 
 import { Place } from './place.model';
 import { AuthService } from '../auth/auth.service';
@@ -54,7 +54,7 @@ export class PlacesService {
     return this.places.pipe(
       take(1),
       map(places => {
-        return {...places.find(place => place.id === placeId)};
+        return { ...places.find(place => place.id === placeId) };
       })
     );
   }
@@ -76,8 +76,12 @@ export class PlacesService {
       dateTo,
       this.authService.userId
     );
-    this.places.pipe(take(1)).subscribe(places => {
-      this._places.next(places.concat(newPlace));
-    });
+    return this.places.pipe(
+      take(1),
+      delay(1000),
+      tap(place => {
+        this._places.next(place.concat(newPlace));
+      })
+    );
   }
 }
