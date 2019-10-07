@@ -6,54 +6,69 @@
 
 <ion-content class="ion-padding">
 
-  <ion-grid>
+  <form #form="ngForm" (ngSubmit)="onSubmit(form)">
+    <ion-grid>
 
-    <ion-row>
-      <ion-col
-        size-sm="4"
-        offset-sm="4"
-      >
-
-        <ion-list class="ion-margin-bottom">
-          <ion-item>
-            <ion-label position="floating">E-Mail</ion-label>
-            <ion-input type="email"></ion-input>
-          </ion-item>
-          <ion-item>
-            <ion-label position="floating">Password</ion-label>
-            <ion-input type="password"></ion-input>
-          </ion-item>
-        </ion-list>
-
-      </ion-col>
-    </ion-row>
-
-    <ion-row>
-      <ion-col
-        size-sm="4"
-        offset-sm="4"
-      >
-
-        <ion-button
-          color="primary"
-          fill="clear"
-          expand="block"
+      <ion-row>
+        <ion-col
+          size-sm="4"
+          offset-sm="4"
         >
-          Switch to Login
-        </ion-button>
 
-        <ion-button
-          color="primary"
-          (click)="onLogin()"
-          expand="block"
+          <ion-list class="ion-margin-bottom">
+            <ion-item>
+              <ion-label position="floating">E-Mail</ion-label>
+              <ion-input
+                type="email"
+                ngModel
+                name="email"
+                required
+                email
+              ></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label position="floating">Password</ion-label>
+              <ion-input
+                type="password"
+                ngModel
+                name="password"
+                required
+                minlength="6"
+              ></ion-input>
+            </ion-item>
+          </ion-list>
+
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col
+          size-sm="4"
+          offset-sm="4"
         >
-          Login
-        </ion-button>
 
-      </ion-col>
-    </ion-row>
+          <ion-button
+            color="primary"
+            fill="clear"
+            expand="block"
+            type="button"
+          >
+            Switch to Login
+          </ion-button>
 
-  </ion-grid>
+          <ion-button
+            color="primary"
+            expand="block"
+            type="submit"
+          >
+            Login
+          </ion-button>
+
+        </ion-col>
+      </ion-row>
+
+    </ion-grid>
+  </form>
 
 
 </ion-content>
