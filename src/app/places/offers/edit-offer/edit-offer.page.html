@@ -2,13 +2,82 @@
   <ion-toolbar>
 
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/places/tabs/offers/{{ place.id }}"></ion-back-button>
+      <ion-back-button defaultHref="/places/tabs/offers/{{ place.id }}">
+      </ion-back-button>
     </ion-buttons>
 
     <ion-title>Edit Offer - {{ place.title }}</ion-title>
+
+    <ion-buttons slot="primary">
+      <ion-button
+        (click)="onUpdateOffer()"
+        [disabled]="!form.valid"
+      >
+        <ion-icon
+          name="checkmark"
+          slot="icon-only"
+        ></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="ion-padding">
+
+  <form [formGroup]="form">
+    <ion-grid>
+      <ion-row>
+        <ion-col
+          size-sm="6"
+          offset-sm="3"
+        >
+          <ion-item>
+            <ion-label position="floating">Title</ion-label>
+            <ion-input
+              type="text"
+              autocomplete
+              autocorrect
+              formControlName="title"
+            ></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col
+          size-sm="6"
+          offset-sm="3"
+        >
+          <ion-item>
+            <ion-label position="floating">Short Description</ion-label>
+            <ion-textarea
+              formControlName="description"
+              rows="3"
+              #textarea
+              (keyup)="onKeyPress(textarea.value)"
+            ></ion-textarea>
+            <ion-note class="ion-padding ion-align-self-end">
+              {{ descriptionLength }} / 180
+            </ion-note>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row
+        *ngIf="form.get('description').hasError('maxlength') && form.get('description').touched"
+      >
+        <ion-col
+          size-sm="6"
+          offset-sm="3"
+        >
+          <ion-item lines="none">
+            <ion-label
+              class="ion-text-wrap"
+              color="danger"
+            >The Description must not be longer than 180 characters</ion-label>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
 
 </ion-content>
