@@ -12,8 +12,9 @@ import {
 
 import { Place } from '../../place.model';
 import { PlacesService } from '../../places.service';
-import { BookingService } from 'src/app/bookings/booking.service';
+import { BookingService } from '../../../bookings/booking.service';
 import { CreateBookingComponent } from '../../../bookings/create-booking/create-booking.component';
+import { AuthService } from '../../../auth/auth.service';
 
 @Component({
   selector: 'app-place-detail',
@@ -21,9 +22,11 @@ import { CreateBookingComponent } from '../../../bookings/create-booking/create-
   styleUrls: ['./place-detail.page.scss']
 })
 export class PlaceDetailPage implements OnInit, OnDestroy {
+  place: Place;
+  isBookable = false;
+
   private placeSub: Subscription;
 
-  place: Place;
 
   constructor(
     private navController: NavController,
@@ -32,7 +35,8 @@ export class PlaceDetailPage implements OnInit, OnDestroy {
     private modalController: ModalController,
     private actionSheetCtrl: ActionSheetController,
     private bookingService: BookingService,
-    private loadingCtrl: LoadingController
+    private loadingCtrl: LoadingController,
+    private authService: AuthService
   ) {}
 
   ngOnInit() {
@@ -46,6 +50,7 @@ export class PlaceDetailPage implements OnInit, OnDestroy {
         .getPlace(paramMap.get('placeId'))
         .subscribe(place => {
           this.place = place;
+          this.isBookable = place.userId !== this.authService.userId;
         });
     });
   }
