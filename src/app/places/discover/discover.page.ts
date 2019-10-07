@@ -4,8 +4,9 @@ import { Subscription } from 'rxjs';
 
 import { SegmentChangeEventDetail } from '@ionic/core';
 
-import { PlacesService } from '../places.service';
 import { Place } from '../place.model';
+import { PlacesService } from '../places.service';
+import { AuthService } from 'src/app/auth/auth.service';
 
 @Component({
   selector: 'app-discover',
@@ -13,22 +14,32 @@ import { Place } from '../place.model';
   styleUrls: ['./discover.page.scss']
 })
 export class DiscoverPage implements OnInit, OnDestroy {
-  private placesSub: Subscription;
-
   loadedPlaces: Place[];
   listedLoadedPlaces: Place[];
+  relevantPlaces: Place[];
 
-  constructor(private placesService: PlacesService) {}
+  private filter = 'all';
+  private placesSub: Subscription;
+
+  constructor(
+    private placesService: PlacesService,
+    private authService: AuthService
+  ) {}
 
   ngOnInit() {
     this.placesSub = this.placesService.places.subscribe(places => {
       this.loadedPlaces = places;
-      this.listedLoadedPlaces = this.loadedPlaces.slice(1);
+      this.onFilterUpdate(this.filter);
     });
   }
 
-  onFilterUpdate(event: CustomEvent<SegmentChangeEventDetail>) {
-    console.log(event.detail);
+  onFilterUpdate(filter: string) {
+    console.log(filter);
+    const isShown = place =>
+      filter === 'all' || place.userId !== this.authService.userId;
+    this.relevantPlaces = this.loadedPlaces.filter(isShown);
+    this.listedLoadedPlaces = this.relevantPlaces.slice(1);
+    this.filter = filter;
   }
 
   ngOnDestroy() {
