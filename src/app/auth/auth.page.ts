@@ -13,6 +13,7 @@ import { AuthService } from './auth.service';
 })
 export class AuthPage implements OnInit {
   isLoading = false;
+  isLogin = true;
 
   constructor(
     private authService: AuthService,
@@ -38,7 +39,10 @@ export class AuthPage implements OnInit {
           this.isLoading = false;
         }, 1500);
       });
+  }
 
+  onSwitchAuthMode() {
+    this.isLogin = !this.isLogin;
   }
 
   onSubmit(form: NgForm) {
