@@ -64,11 +64,21 @@ export class PlacesService {
       );
   }
 
-  getPlace(placeId: string): Observable<Place> {
-    return this.places.pipe(
-      take(1),
-      map(places => {
-        return { ...places.find(place => place.id === placeId) };
+  getPlace(placeId: string): Observable<any> {
+    return this.httpClient.get<PlaceData>(
+      `https://lodgesy.firebaseio.com/offered-places/${placeId}.json`
+    ).pipe(
+      map(resData => {
+        return new Place(
+          placeId,
+          resData.title,
+          resData.description,
+          resData.imageUrl,
+          +resData.price,
+          new Date(resData.availableFrom),
+          new Date(resData.availableTo),
+          resData.userId
+        );
       })
     );
   }
