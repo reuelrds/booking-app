@@ -78,15 +78,19 @@ export class BookingService {
   }
 
   cancelBooking(bookingId: string) {
-    return this.bookings.pipe(
-      take(1),
-      delay(1000),
-      tap(bookings => {
-        this._bookings.next(
-          bookings.filter(booking => booking.id !== bookingId)
-        );
-      })
-    );
+    return this.httpClient
+      .delete(`https://lodgesy.firebaseio.com/bookings/${bookingId}.json`)
+      .pipe(
+        switchMap(() => {
+          return this.bookings;
+        }),
+        take(1),
+        tap(bookings => {
+          this._bookings.next(
+            bookings.filter(booking => booking.id !== bookingId)
+          );
+        })
+      );
   }
 
   fetchBookings() {
