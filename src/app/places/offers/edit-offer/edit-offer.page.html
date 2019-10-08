@@ -25,11 +25,17 @@
 
 <ion-content class="ion-padding">
 
-  <div *ngIf="isLoading">
+  <div
+    class="ion-text-center"
+    *ngIf="isLoading"
+  >
     <ion-spinner color="primary"></ion-spinner>
   </div>
 
-  <form [formGroup]="form" *ngIf="!isLoading">
+  <form
+    [formGroup]="form"
+    *ngIf="!isLoading"
+  >
     <ion-grid>
       <ion-row>
         <ion-col
