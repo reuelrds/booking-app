@@ -9,7 +9,10 @@
     <ion-title>New Offer</ion-title>
 
     <ion-buttons slot="primary">
-      <ion-button (click)="onCreateOffer()" [disabled]="!form.valid">
+      <ion-button
+        (click)="onCreateOffer()"
+        [disabled]="!form.valid"
+      >
         <ion-icon
           name="checkmark"
           slot="icon-only"
@@ -67,7 +70,10 @@
           offset-sm="3"
         >
           <ion-item lines="none">
-            <ion-label class="ion-text-wrap" color="danger">The Description must not be longer than 180 characters</ion-label>
+            <ion-label
+              class="ion-text-wrap"
+              color="danger"
+            >The Description must not be longer than 180 characters</ion-label>
           </ion-item>
         </ion-col>
       </ion-row>
@@ -108,6 +114,14 @@
               formControlName="dateTo"
             ></ion-datetime>
           </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col
+          size-sm="3"
+          offset-sm="3"
+        >
+        <app-loaction-picker></app-loaction-picker>
         </ion-col>
       </ion-row>
     </ion-grid>
