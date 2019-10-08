@@ -6,13 +6,17 @@
       </ion-back-button>
     </ion-buttons>
 
-    <ion-title>Place Detail - {{ place.title }}</ion-title>
+    <ion-title>Place Detail - {{ isLoading ? 'Loading...' : place.title }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
 
-  <ion-grid class="ion-no-padding">
+  <div class="ion-padding ion-text-center" *ngIf="isLoading">
+    <ion-spinner></ion-spinner>
+  </div>
+
+  <ion-grid class="ion-no-padding" *ngIf="!isLoading">
     <ion-row>
       <ion-col
         size-sm="6"
