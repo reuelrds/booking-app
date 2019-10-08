@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { BehaviorSubject, Observable } from 'rxjs';
-import { take, map, tap, delay, switchMap } from 'rxjs/operators';
+import { BehaviorSubject, Observable, of } from 'rxjs';
+import { take, map, tap, switchMap } from 'rxjs/operators';
 
 import { Place } from './place.model';
 import { AuthService } from '../auth/auth.service';
@@ -65,22 +65,24 @@ export class PlacesService {
   }
 
   getPlace(placeId: string): Observable<any> {
-    return this.httpClient.get<PlaceData>(
-      `https://lodgesy.firebaseio.com/offered-places/${placeId}.json`
-    ).pipe(
-      map(resData => {
-        return new Place(
-          placeId,
-          resData.title,
-          resData.description,
-          resData.imageUrl,
-          +resData.price,
-          new Date(resData.availableFrom),
-          new Date(resData.availableTo),
-          resData.userId
-        );
-      })
-    );
+    return this.httpClient
+      .get<PlaceData>(
+        `https://lodgesy.firebaseio.com/offered-places/${placeId}.json`
+      )
+      .pipe(
+        map(resData => {
+          return new Place(
+            placeId,
+            resData.title,
+            resData.description,
+            resData.imageUrl,
+            +resData.price,
+            new Date(resData.availableFrom),
+            new Date(resData.availableTo),
+            resData.userId
+          );
+        })
+      );
   }
 
   addPlace(
@@ -127,6 +129,13 @@ export class PlacesService {
     let updatedPlaces: Place[];
     return this.places.pipe(
       take(1),
+      switchMap(places => {
+        if (!places || places.length <= 0) {
+          return this.fetchPlaces();
+        } else {
+          return of(places);
+        }
+      }),
       switchMap(places => {
         const updatedPlaceIndex = places.findIndex(
           place => place.id === placeId

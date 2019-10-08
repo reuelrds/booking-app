@@ -15,11 +15,13 @@ import { PlacesService } from '../../places.service';
   styleUrls: ['./edit-offer.page.scss']
 })
 export class EditOfferPage implements OnInit, OnDestroy {
-  private placeSub: Subscription;
-
   place: Place;
   form: FormGroup;
+  placeId: string;
   descriptionLength = 0;
+  isLoading = false;
+
+  private placeSub: Subscription;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -36,6 +38,8 @@ export class EditOfferPage implements OnInit, OnDestroy {
         return;
       }
 
+      this.placeId = paramMap.get('placeId');
+      this.isLoading = true;
       this.placeSub = this.placesService
         .getPlace(paramMap.get('placeId'))
         .subscribe(place => {
@@ -52,6 +56,7 @@ export class EditOfferPage implements OnInit, OnDestroy {
           });
 
           this.descriptionLength = this.place.description.length;
+          this.isLoading = false;
         });
     });
   }

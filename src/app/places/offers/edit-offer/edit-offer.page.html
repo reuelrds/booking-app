@@ -2,16 +2,16 @@
   <ion-toolbar>
 
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/places/tabs/offers/{{ place.id }}">
+      <ion-back-button defaultHref="/places/tabs/offers/{{ placeId }}">
       </ion-back-button>
     </ion-buttons>
 
-    <ion-title>Edit Offer - {{ place.title }}</ion-title>
+    <ion-title>Edit Offer - {{ place?.title }}</ion-title>
 
     <ion-buttons slot="primary">
       <ion-button
         (click)="onUpdateOffer()"
-        [disabled]="!form.valid"
+        [disabled]="!form?.valid"
       >
         <ion-icon
           name="checkmark"
@@ -25,7 +25,11 @@
 
 <ion-content class="ion-padding">
 
-  <form [formGroup]="form">
+  <div *ngIf="isLoading">
+    <ion-spinner color="primary"></ion-spinner>
+  </div>
+
+  <form [formGroup]="form" *ngIf="!isLoading">
     <ion-grid>
       <ion-row>
         <ion-col
