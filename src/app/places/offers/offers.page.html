@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    
+
     <ion-buttons slot="start">
       <ion-menu-button menu="menu1"></ion-menu-button>
     </ion-buttons>
@@ -8,10 +8,11 @@
     <ion-title>My Offers</ion-title>
 
     <ion-buttons slot="primary">
-      <ion-button
-        routerLink="/places/tabs/offers/new"
-      >
-        <ion-icon name="add" slot="icon-only"></ion-icon>
+      <ion-button routerLink="/places/tabs/offers/new">
+        <ion-icon
+          name="add"
+          slot="icon-only"
+        ></ion-icon>
       </ion-button>
     </ion-buttons>
 
@@ -20,31 +21,65 @@
 
 <ion-content class="ion-padding">
 
-    <ion-grid>
+  <ion-grid>
 
-        <ion-row>
-          <ion-col size="12" size-sm="8" offset-sm="2" class="ion-text-center">
-    
-            <ion-list>
-              <ion-item-sliding 
-                *ngFor="let offer of offers"
-                #slidingItem
+    <ion-row>
+      <ion-col
+        size="12"
+        size-sm="8"
+        offset-sm="2"
+        class="ion-text-center"
+      >
+
+        <div
+          *ngIf="!isLoading && offers.length <=0"
+          class="ion-padding ion-text-center"
+        >
+          <p>No offers found!</p>
+          <p>Please create one first!</p>
+          <ion-button
+            class="ion-margin-top"
+            color="primary"
+            routerLink="/places/tabs/offers/new"
+          >Offer New Place</ion-button>
+        </div>
+
+        <div
+          class="ion-padding ion-text-center"
+          *ngIf="isLoading"
+        >
+          <ion-spinner
+            color="primary"
+            name="circular"
+          ></ion-spinner>
+        </div>
+
+        <ion-list *ngIf="!isLoading && offers.length > 0">
+          <ion-item-sliding
+            *ngFor="let offer of offers"
+            #slidingItem
+          >
+
+            <app-offer-item [offer]="offer"></app-offer-item>
+            <ion-item-options>
+
+              <ion-item-option
+                color="secondary"
+                (click)="onEdit(offer.id, slidingItem)"
               >
-                
-                <app-offer-item [offer]="offer"></app-offer-item>
-                <ion-item-options>
+                <ion-icon
+                  name="create"
+                  slot="icon-only"
+                ></ion-icon>
+              </ion-item-option>
 
-                  <ion-item-option color="secondary" (click)="onEdit(offer.id, slidingItem)">
-                    <ion-icon name="create" slot="icon-only"></ion-icon>
-                  </ion-item-option>
+            </ion-item-options>
+          </ion-item-sliding>
+        </ion-list>
 
-                </ion-item-options>
-              </ion-item-sliding>
-            </ion-list>
-    
-          </ion-col>
-        </ion-row>
-    
-      </ion-grid>
+      </ion-col>
+    </ion-row>
+
+  </ion-grid>
 
 </ion-content>

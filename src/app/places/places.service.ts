@@ -7,43 +7,21 @@ import { take, map, tap, delay, switchMap } from 'rxjs/operators';
 import { Place } from './place.model';
 import { AuthService } from '../auth/auth.service';
 
+interface PlaceData {
+  availableFrom: string;
+  availableTo: string;
+  description: string;
+  imageUrl: string;
+  price: string;
+  title: string;
+  userId: string;
+}
+
 @Injectable({
   providedIn: 'root'
 })
 export class PlacesService {
-  private _places = new BehaviorSubject<Place[]>([
-    new Place(
-      'p1',
-      'Manhattan Mansion',
-      'In the heart of New York City',
-      'https://media.architecturaldigest.com/photos/59caa80a839a9e7c5d248e96/16:9/w_2560,c_limit/bon1.jpg',
-      149.99,
-      new Date('2019-01-01'),
-      new Date('2019-12-31'),
-      'abc'
-    ),
-    new Place(
-      'p2',
-      // tslint:disable-next-line: quotemark
-      "L'Amour Toujours",
-      'A Romantic Place in Paris!',
-      'https://tinyurl.com/y2ww9a5b',
-      189.99,
-      new Date('2018-01-01'),
-      new Date('2020-2-28'),
-      'xyz'
-    ),
-    new Place(
-      'p3',
-      'The Foggy Palace',
-      'Not your average city trip!',
-      'https://live.staticflickr.com/4711/26100810738_0f74f58b9b_b.jpg',
-      99.99,
-      new Date('2019-01-01'),
-      new Date('2025-10-31'),
-      'xyz'
-    )
-  ]);
+  private _places = new BehaviorSubject<Place[]>([]);
 
   get places() {
     return this._places.asObservable();
@@ -53,6 +31,38 @@ export class PlacesService {
     private authService: AuthService,
     private httpClient: HttpClient
   ) {}
+
+  fetchPlaces() {
+    return this.httpClient
+      .get<{ [key: string]: PlaceData }>(
+        'https://lodgesy.firebaseio.com/offered-places.json'
+      )
+      .pipe(
+        map(resData => {
+          const places = [];
+          for (const key in resData) {
+            if (resData.hasOwnProperty(key)) {
+              places.push(
+                new Place(
+                  key,
+                  resData[key].title,
+                  resData[key].description,
+                  resData[key].imageUrl,
+                  +resData[key].price,
+                  new Date(resData[key].availableFrom),
+                  new Date(resData[key].availableTo),
+                  resData[key].userId
+                )
+              );
+            }
+          }
+          return places;
+        }),
+        tap(places => {
+          this._places.next(places);
+        })
+      );
+  }
 
   getPlace(placeId: string): Observable<Place> {
     return this.places.pipe(
