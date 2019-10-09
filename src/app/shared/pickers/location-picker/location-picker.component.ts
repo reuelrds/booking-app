@@ -4,11 +4,16 @@ import { HttpClient } from '@angular/common/http';
 import { of } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 
-import { ModalController } from '@ionic/angular';
+import { Plugins, Capacitor } from '@capacitor/core';
+import {
+  ModalController,
+  ActionSheetController,
+  AlertController
+} from '@ionic/angular';
 
 import { environment } from '../../../../environments/environment';
 import { MapModalComponent } from '../../map-modal/map-modal.component';
-import { PlaceLocation } from '../../../places/location.model';
+import { PlaceLocation, Coordinates } from '../../../places/location.model';
 
 @Component({
   selector: 'app-location-picker',
@@ -16,20 +21,76 @@ import { PlaceLocation } from '../../../places/location.model';
   styleUrls: ['./location-picker.component.scss']
 })
 export class LocationPickerComponent implements OnInit {
-
   @Output() locationPick = new EventEmitter<PlaceLocation>();
 
   selectedLocationImage: string;
   isLoading = false;
 
   constructor(
+    private httpClient: HttpClient,
     private modalCtrl: ModalController,
-    private httpClient: HttpClient
+    private alertCtrl: AlertController,
+    private actionSheetCtrl: ActionSheetController
   ) {}
 
   ngOnInit() {}
 
   onPickLocation() {
+    this.actionSheetCtrl
+      .create({
+        header: 'Please Choose',
+        buttons: [
+          {
+            text: 'Auto-Locate',
+            handler: () => {
+              this.loacteUser();
+            }
+          },
+          {
+            text: 'Pick on Map',
+            handler: () => {
+              this.openMap();
+            }
+          },
+          { text: 'Cancel', role: 'cancel' }
+        ]
+      })
+      .then(actionSheetEl => actionSheetEl.present());
+  }
+
+  private loacteUser() {
+    if (!Capacitor.isPluginAvailable('Geolocation')) {
+      this.showErrorAlert();
+      return;
+    }
+
+    this.isLoading = true;
+    Plugins.Geolocation.getCurrentPosition()
+      .then(geoPosition => {
+        const coords: Coordinates = {
+          lat: geoPosition.coords.latitude,
+          lng: geoPosition.coords.longitude
+        };
+        this.createPlace(coords.lat, coords.lng);
+        this.isLoading = true;
+      })
+      .catch(err => {
+        this.isLoading = true;
+        this.showErrorAlert();
+      });
+  }
+
+  private showErrorAlert() {
+    this.alertCtrl
+      .create({
+        header: 'Could not fetch location',
+        message: 'Please use the map to pick a location!',
+        buttons: ['Okay']
+      })
+      .then(alertEl => alertEl.present());
+  }
+
+  private openMap() {
     this.modalCtrl
       .create({
         component: MapModalComponent
@@ -39,30 +100,38 @@ export class LocationPickerComponent implements OnInit {
           if (!modalData.data) {
             return;
           }
-          const pickedLocation: PlaceLocation = {
+          const coords: Coordinates = {
             lat: modalData.data.lat,
-            lng: modalData.data.lng,
-            address: null,
-            staticMapImageUrl: null
+            lng: modalData.data.lng
           };
-          this.isLoading = true;
-          this.getAddress(modalData.data.lat, modalData.data.lng)
-            .pipe(
-              switchMap(address => {
-                pickedLocation.address = address;
-                return of(
-                  this.getMapImage(pickedLocation.lat, pickedLocation.lng, 14)
-                );
-              })
-            )
-            .subscribe(staticMapImageUrl => {
-              pickedLocation.staticMapImageUrl = staticMapImageUrl;
-              this.selectedLocationImage = staticMapImageUrl;
-              this.isLoading = false;
-              this.locationPick.next(pickedLocation);
-            });
+          this.createPlace(coords.lat, coords.lng);
         });
         modalEl.present();
+      });
+  }
+
+  private createPlace(lat: number, lng: number) {
+    const pickedLocation: PlaceLocation = {
+      lat,
+      lng,
+      address: null,
+      staticMapImageUrl: null
+    };
+    this.isLoading = true;
+    this.getAddress(lat, lng)
+      .pipe(
+        switchMap(address => {
+          pickedLocation.address = address;
+          return of(
+            this.getMapImage(pickedLocation.lat, pickedLocation.lng, 14)
+          );
+        })
+      )
+      .subscribe(staticMapImageUrl => {
+        pickedLocation.staticMapImageUrl = staticMapImageUrl;
+        this.selectedLocationImage = staticMapImageUrl;
+        this.isLoading = false;
+        this.locationPick.next(pickedLocation);
       });
   }
 
