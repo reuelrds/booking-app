@@ -8,6 +8,8 @@ This App allows users to book a room or offer their own place for booking, edit 
   * [The Design](#the-design)
   * [To run Locally](#to-run-locally)
     + [Building the App](#building-the-app)
+  * [API Keys Note](#api-keys-note)
+    + [To get your own Google Maps API key](#to-get-your-own-google-maps-api-key)
 
 <small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
 
@@ -89,4 +91,13 @@ The **_android_** folder is an Android project and can be opened in the Android 
 
 **Note -** If you are facing any problems running the above npm scripts, install angular cli and ionic cli globally using `npm install -g @angular/cli` and `npm install -g ionic` respectively and run `ionic serve` to launch the app in a browser. To Build the app use `ng build --prod && ionic capacitor copy android` to create an Android Studio project which can be used to preivew the app on an emulator or a physical device and also generate the apk.  
 
+## API Keys Note
 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This app uses Google Maps. So, you'll need your own api key to get the app to work properly. Once you have your API Key paste it in the `env.ts` file which will be located in `src/environments`.  
+**Note -** An example `env.example.ts` file is provided.
+
+### To get your own Google Maps API key
+1. Head over to [Google Maps Platform](https://cloud.google.com/maps-platform/) to get your own API key. 
+2. Click on Get Started.
+3. Select 'Maps' and 'Places' products.
+4. Follow the instructions on screen.
