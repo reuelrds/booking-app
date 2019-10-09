@@ -19,9 +19,7 @@
     <ion-segment-button value="bookable">Bookable Places</ion-segment-button>
   </ion-segment>
 
-  <ion-grid
-    *ngIf="isLoading"
-  >
+  <ion-grid *ngIf="isLoading">
     <ion-row>
       <ion-col
         size="12"
@@ -103,13 +101,11 @@
         text-center
       >
 
-        <ion-virtual-scroll
-          [items]="listedLoadedPlaces"
-          approxItemHeight="70px"
-        >
+        <!-- <ion-content> -->
+        <ion-list>
           <ion-item
             detail
-            *virtualItem="let place"
+            *ngFor="let place of listedLoadedPlaces"
             [routerLink]="[
               '/',
               'places',
@@ -129,7 +125,8 @@
             </ion-label>
 
           </ion-item>
-        </ion-virtual-scroll>
+        </ion-list>>
+        <!-- </ion-content> -->
 
       </ion-col>
     </ion-row>
