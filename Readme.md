@@ -37,10 +37,6 @@ This App allows users to book a room or offer their own place for booking, edit 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The Offers Page allows user to rent out his own places/ rooms to other people. A user can list out his place using the add (plus) icon located on the top right corner which brings up the **_New Offer Page_**. The Offers place also displays a list of current offerings by the user. Tapping on an offer leads to the **_Offer Bookings Page_**.
 
 
-**_The Offer Bookings Page_** -  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This page allows a user to view the list of other users who have booked the current offering. This page also allows the user to edit the current offering by tapping on the edit button which leads to the **_Edit Offer Page_**
-
-
 **_The New Offer Page_** -  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This page allows an user to list out a new place available for bookings by other users.
 
@@ -94,7 +90,7 @@ The **_android_** folder is an Android project and can be opened in the Android 
 ## API Keys Note
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This app uses Google Maps. So, you'll need your own api key to get the app to work properly. Once you have your API Key paste it in the `env.ts` file which will be located in `src/environments`.  
-**Note -** An example `env.example.ts` file is provided.
+**Note -** An example [env.example.ts](https://github.com/reuelrds/booking-app/blob/master/src/environments/env.example.ts) file is provided.
 
 ### To get your own Google Maps API key
 1. Head over to [Google Maps Platform](https://cloud.google.com/maps-platform/) to get your own API key. 
