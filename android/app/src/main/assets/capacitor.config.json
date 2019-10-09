@@ -3,5 +3,6 @@
   "appName": "Lodgesy",
   "bundledWebRuntime": false,
   "npmClient": "npm",
-  "webDir": "www"
+  "webDir": "www",
+  "linuxAndroidStudioPath": "/home/reuelrds/android-studio/bin/studio.sh"
 }
