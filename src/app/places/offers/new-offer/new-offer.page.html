@@ -121,7 +121,7 @@
           size-sm="3"
           offset-sm="3"
         >
-        <app-loaction-picker></app-loaction-picker>
+        <app-location-picker (locationPick)="onLocationPicked($event)"></app-location-picker>
         </ion-col>
       </ion-row>
     </ion-grid>

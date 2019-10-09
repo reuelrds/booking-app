@@ -5,6 +5,7 @@ import { BehaviorSubject, Observable, of } from 'rxjs';
 import { take, map, tap, switchMap } from 'rxjs/operators';
 
 import { Place } from './place.model';
+import { PlaceLocation } from './location.model';
 import { AuthService } from '../auth/auth.service';
 
 interface PlaceData {
@@ -15,6 +16,7 @@ interface PlaceData {
   price: string;
   title: string;
   userId: string;
+  location: PlaceLocation;
 }
 
 @Injectable({
@@ -51,7 +53,8 @@ export class PlacesService {
                   +resData[key].price,
                   new Date(resData[key].availableFrom),
                   new Date(resData[key].availableTo),
-                  resData[key].userId
+                  resData[key].userId,
+                  resData[key].location
                 )
               );
             }
@@ -79,7 +82,8 @@ export class PlacesService {
             +resData.price,
             new Date(resData.availableFrom),
             new Date(resData.availableTo),
-            resData.userId
+            resData.userId,
+            resData.location
           );
         })
       );
@@ -90,7 +94,8 @@ export class PlacesService {
     description: string,
     price: number,
     dateFrom: Date,
-    dateTo: Date
+    dateTo: Date,
+    location: PlaceLocation
   ) {
     let generatedId: string;
 
@@ -102,7 +107,8 @@ export class PlacesService {
       price,
       dateFrom,
       dateTo,
-      this.authService.userId
+      this.authService.userId,
+      location
     );
     return this.httpClient
       .post<{ name: string }>(
@@ -150,7 +156,8 @@ export class PlacesService {
           oldPlace.price,
           oldPlace.availableFrom,
           oldPlace.availableTo,
-          oldPlace.userId
+          oldPlace.userId,
+          oldPlace.location
         );
         return this.httpClient.put(
           `https://lodgesy.firebaseio.com/offered-places/${placeId}.json`,
