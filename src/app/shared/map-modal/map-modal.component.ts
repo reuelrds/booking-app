@@ -5,12 +5,14 @@ import {
   ViewChild,
   ElementRef,
   Renderer2,
-  OnDestroy
+  OnDestroy,
+  Input
 } from '@angular/core';
 
 import { ModalController } from '@ionic/angular';
 
 import { environment } from '../../../environments/environment';
+import { Coordinates } from '../../places/location.model';
 
 @Component({
   selector: 'app-map-modal',
@@ -20,8 +22,13 @@ import { environment } from '../../../environments/environment';
 export class MapModalComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('map', { static: false }) mapElementRef: ElementRef;
 
+  @Input() center: Coordinates = { lat: 19.045, lng: 72.82 };
+  @Input() isSelectable = true;
+  @Input() closeButtonText = 'Cancel';
+  @Input() title = 'Pick Loaction';
+
   clickListener: any;
-  googleMaps: any
+  googleMaps: any;
 
   constructor(
     private modalCtrl: ModalController,
@@ -37,20 +44,29 @@ export class MapModalComponent implements OnInit, AfterViewInit, OnDestroy {
         // Get Div referenced with 'map'
         const mapEl = this.mapElementRef.nativeElement;
         const map = new googleMaps.Map(mapEl, {
-          center: { lat: 19.045, lng: 72.82 },
+          center: this.center,
           zoom: 16
         });
         googleMaps.event.addListenerOnce(map, 'idle', () => {
           this.renderer.addClass(mapEl, 'visible');
         });
 
-        this.clickListener = map.addListener('click', event => {
-          const selectedCoords = {
-            lat: event.latLng.lat(),
-            lng: event.latLng.lng()
-          };
-          this.modalCtrl.dismiss(selectedCoords);
-        });
+        if (this.isSelectable) {
+          this.clickListener = map.addListener('click', event => {
+            const selectedCoords = {
+              lat: event.latLng.lat(),
+              lng: event.latLng.lng()
+            };
+            this.modalCtrl.dismiss(selectedCoords);
+          });
+        } else {
+          const marker = new googleMaps.Marker({
+            position: this.center,
+            map,
+            title: 'Picked Location'
+          });
+          marker.setMap(map);
+        }
       })
       .catch(err => {
         console.log(err);
@@ -62,7 +78,9 @@ export class MapModalComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.googleMaps.event.removeListener(this.clickListener);
+    if (this.isSelectable) {
+      this.googleMaps.event.removeListener(this.clickListener);
+    }
   }
 
   private getGoogleMaps(): Promise<any> {

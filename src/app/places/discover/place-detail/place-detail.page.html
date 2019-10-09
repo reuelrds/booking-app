@@ -60,6 +60,8 @@
         <ion-img
           class="loaction-image"
           [src]="place.location.staticMapImageUrl"
+          role="button"
+          (click)="onShowMap()"
         ></ion-img>
       </ion-col>
     </ion-row>
