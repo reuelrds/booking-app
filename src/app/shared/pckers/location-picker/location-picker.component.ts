@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { of } from 'rxjs';
@@ -8,14 +8,16 @@ import { ModalController } from '@ionic/angular';
 
 import { environment } from '../../../../environments/environment';
 import { MapModalComponent } from '../../map-modal/map-modal.component';
-import { PlaceLoaction } from '../../../places/location.model';
+import { PlaceLocation } from '../../../places/location.model';
 
 @Component({
-  selector: 'app-loaction-picker',
-  templateUrl: './loaction-picker.component.html',
-  styleUrls: ['./loaction-picker.component.scss']
+  selector: 'app-location-picker',
+  templateUrl: './location-picker.component.html',
+  styleUrls: ['./location-picker.component.scss']
 })
-export class LoactionPickerComponent implements OnInit {
+export class LocationPickerComponent implements OnInit {
+
+  @Output() locationPick = new EventEmitter<PlaceLocation>();
 
   selectedLocationImage: string;
   isLoading = false;
@@ -27,7 +29,7 @@ export class LoactionPickerComponent implements OnInit {
 
   ngOnInit() {}
 
-  onPickLoaction() {
+  onPickLocation() {
     this.modalCtrl
       .create({
         component: MapModalComponent
@@ -37,7 +39,7 @@ export class LoactionPickerComponent implements OnInit {
           if (!modalData.data) {
             return;
           }
-          const pickedLoaction: PlaceLoaction = {
+          const pickedLocation: PlaceLocation = {
             lat: modalData.data.lat,
             lng: modalData.data.lng,
             address: null,
@@ -47,16 +49,17 @@ export class LoactionPickerComponent implements OnInit {
           this.getAddress(modalData.data.lat, modalData.data.lng)
             .pipe(
               switchMap(address => {
-                pickedLoaction.address = address;
+                pickedLocation.address = address;
                 return of(
-                  this.getMapImage(pickedLoaction.lat, pickedLoaction.lng, 14)
+                  this.getMapImage(pickedLocation.lat, pickedLocation.lng, 14)
                 );
               })
             )
             .subscribe(staticMapImageUrl => {
-              pickedLoaction.staticMapImageUrl = staticMapImageUrl;
+              pickedLocation.staticMapImageUrl = staticMapImageUrl;
               this.selectedLocationImage = staticMapImageUrl;
               this.isLoading = false;
+              this.locationPick.next(pickedLocation);
             });
         });
         modalEl.present();
