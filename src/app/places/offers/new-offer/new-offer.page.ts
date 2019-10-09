@@ -87,4 +87,8 @@ export class NewOfferPage implements OnInit {
       location: locationData
     });
   }
+
+  onImagePicked(imageData: string) {
+    console.log(imageData);
+  }
 }

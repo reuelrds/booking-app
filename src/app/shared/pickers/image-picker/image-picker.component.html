@@ -1,7 +1,6 @@
 <div class="picker">
 
   <ion-img
-    class="location-image"
     [src]="selectedImage"
     *ngIf="selectedImage"
     role="button"
@@ -10,7 +9,7 @@
   <ion-button
     color="primary"
     (click)="onPickImage()"
-    *ngIf="!isLoading && !selectedImage"
+    *ngIf="!selectedImage"
   >
     <ion-icon
       name="camera"
