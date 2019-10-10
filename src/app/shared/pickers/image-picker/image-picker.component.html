@@ -3,14 +3,14 @@
   <ion-img
     class="image"
     [src]="selectedImage"
-    *ngIf="selectedImage"
+    *ngIf="selectedImage && showPreview"
     role="button"
     (click)="onPickImage()"
   ></ion-img>
   <ion-button
     color="primary"
     (click)="onPickImage()"
-    *ngIf="!selectedImage"
+    *ngIf="!selectedImage || !showPreview"
   >
     <ion-icon
       name="camera"

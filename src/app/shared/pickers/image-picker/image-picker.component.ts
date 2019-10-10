@@ -4,7 +4,8 @@ import {
   Output,
   EventEmitter,
   ViewChild,
-  ElementRef
+  ElementRef,
+  Input
 } from '@angular/core';
 
 import {
@@ -21,11 +22,12 @@ import { Platform } from '@ionic/angular';
   styleUrls: ['./image-picker.component.scss']
 })
 export class ImagePickerComponent implements OnInit {
-  @Output() imagePick = new EventEmitter<string | File>();
-
   @ViewChild('filePicker', { static: false }) filePickerRef: ElementRef<
     HTMLInputElement
   >;
+
+  @Input() showPreview = false;
+  @Output() imagePick = new EventEmitter<string | File>();
 
   selectedImage: string;
   usePicker = false;
