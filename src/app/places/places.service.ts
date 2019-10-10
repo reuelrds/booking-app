@@ -89,13 +89,23 @@ export class PlacesService {
       );
   }
 
+  uploadImage(image: File) {
+    const uploadData = new FormData();
+    uploadData.append('image', image);
+    return this.httpClient.post<{imageUrl: string, imagePath: string}>(
+      'https://us-central1-lodgesy.cloudfunctions.net/storeImage',
+      uploadData
+    );
+  }
+
   addPlace(
     title: string,
     description: string,
     price: number,
     dateFrom: Date,
     dateTo: Date,
-    location: PlaceLocation
+    location: PlaceLocation,
+    imageUrl: string
   ) {
     let generatedId: string;
 
@@ -103,7 +113,7 @@ export class PlacesService {
       Math.random().toString(),
       title,
       description,
-      'https://live.staticflickr.com/4711/26100810738_0f74f58b9b_b.jpg',
+      imageUrl,
       price,
       dateFrom,
       dateTo,
