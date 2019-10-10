@@ -11,7 +11,7 @@
     <ion-buttons slot="primary">
       <ion-button
         (click)="onCreateOffer()"
-        [disabled]="!form.valid"
+        [disabled]="!form.valid || !form.get('image').value"
       >
         <ion-icon
           name="checkmark"
