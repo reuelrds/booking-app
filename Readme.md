@@ -105,7 +105,7 @@ The **_android_** folder is an Android project and can be opened in the Android 
 
 + #### Firebase Project Id _(You'll need this later)_
   1. In your Firebase project, Go to Project Settings
-  2. Under General Tab you'll find your API Key listed as `Project ID`
+  2. Under General Tab you'll find your Project Id listed as `Project ID`
 
 + #### Firebase API Key
   1. In your Firebase project, Go to Project Settings
