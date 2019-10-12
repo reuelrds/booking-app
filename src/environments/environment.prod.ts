@@ -2,5 +2,8 @@ import { env } from './env';
 
 export const environment = {
   production: true,
-  googleMapsAPIKey: env.googleMapsAPIKey
+  backendURL: env.backendURL,
+  storeImageURL: env.storeImageURL,
+  firebaseAPIKey: env.firebaseAPIKey,
+  googleMapsAPIKey: env.googleMapsAPIKey,
 };

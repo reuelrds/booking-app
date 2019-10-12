@@ -4,6 +4,8 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, of } from 'rxjs';
 import { take, tap, delay, switchMap, map } from 'rxjs/operators';
 
+import { environment } from '../../environments/environment';
+
 import { Booking } from './booking.model';
 import { AuthService } from '../auth/auth.service';
 
@@ -25,6 +27,8 @@ interface BookingData {
   providedIn: 'root'
 })
 export class BookingService {
+  backendURL = environment.backendURL;
+
   private _bookings = new BehaviorSubject<Booking[]>([]);
 
   get bookings() {
@@ -60,7 +64,7 @@ export class BookingService {
       dateTo
     );
     return this.httpClient
-      .post<{ name: string }>('https://lodgesy.firebaseio.com/bookings.json', {
+      .post<{ name: string }>(`${this.backendURL}/bookings.json`, {
         ...newBooking,
         id: null
       })
@@ -79,7 +83,7 @@ export class BookingService {
 
   cancelBooking(bookingId: string) {
     return this.httpClient
-      .delete(`https://lodgesy.firebaseio.com/bookings/${bookingId}.json`)
+      .delete(`${this.backendURL}/bookings/${bookingId}.json`)
       .pipe(
         switchMap(() => {
           return this.bookings;
@@ -96,7 +100,7 @@ export class BookingService {
   fetchBookings() {
     return this.httpClient
       .get<{ [key: string]: BookingData }>(
-        `https://lodgesy.firebaseio.com/bookings.json?orderBy="userId"&equalTo="${this.authService.userId}"`
+        `${this.backendURL}/bookings.json?orderBy="userId"&equalTo="${this.authService.userId}"`
       )
       .pipe(
         map(resData => {

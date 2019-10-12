@@ -6,6 +6,9 @@ import { env } from './env';
 
 export const environment = {
   production: false,
+  backendURL: env.backendURL,
+  storeImageURL: env.storeImageURL,
+  firebaseAPIKey: env.firebaseAPIKey,
   googleMapsAPIKey: env.googleMapsAPIKey
 };
 

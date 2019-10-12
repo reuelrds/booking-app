@@ -4,6 +4,8 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { take, map, tap, switchMap } from 'rxjs/operators';
 
+import { environment } from '../../environments/environment';
+
 import { Place } from './place.model';
 import { PlaceLocation } from './location.model';
 import { AuthService } from '../auth/auth.service';
@@ -23,6 +25,9 @@ interface PlaceData {
   providedIn: 'root'
 })
 export class PlacesService {
+  backendURL = environment.backendURL;
+  storeImageURL = environment.storeImageURL;
+
   private _places = new BehaviorSubject<Place[]>([]);
 
   get places() {
@@ -37,7 +42,7 @@ export class PlacesService {
   fetchPlaces() {
     return this.httpClient
       .get<{ [key: string]: PlaceData }>(
-        'https://lodgesy.firebaseio.com/offered-places.json'
+        `${this.backendURL}/offered-places.json`
       )
       .pipe(
         map(resData => {
@@ -70,7 +75,7 @@ export class PlacesService {
   getPlace(placeId: string): Observable<any> {
     return this.httpClient
       .get<PlaceData>(
-        `https://lodgesy.firebaseio.com/offered-places/${placeId}.json`
+        `${this.backendURL}/offered-places/${placeId}.json`
       )
       .pipe(
         map(resData => {
@@ -92,8 +97,8 @@ export class PlacesService {
   uploadImage(image: File) {
     const uploadData = new FormData();
     uploadData.append('image', image);
-    return this.httpClient.post<{imageUrl: string, imagePath: string}>(
-      'https://us-central1-lodgesy.cloudfunctions.net/storeImage',
+    return this.httpClient.post<{ imageUrl: string; imagePath: string }>(
+      `${this.storeImageURL}`,
       uploadData
     );
   }
@@ -122,7 +127,7 @@ export class PlacesService {
     );
     return this.httpClient
       .post<{ name: string }>(
-        'https://lodgesy.firebaseio.com/offered-places.json',
+        `${this.backendURL}/offered-places.json`,
         {
           ...newPlace,
           id: null
@@ -170,7 +175,7 @@ export class PlacesService {
           oldPlace.location
         );
         return this.httpClient.put(
-          `https://lodgesy.firebaseio.com/offered-places/${placeId}.json`,
+          `${this.backendURL}/offered-places/${placeId}.json`,
           { ...updatedPlaces[updatedPlaceIndex], id: null }
         );
       }),
