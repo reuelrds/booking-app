@@ -28,6 +28,10 @@
                 <category android:name="android.intent.category.BROWSABLE" />
                 <data android:scheme="@string/custom_url_scheme" />
             </intent-filter>
+            <intent-filter>
+              <action android:name="com.darryncampbell.cordova.plugin.intent.ACTION"/>
+              <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
 
         </activity>
 

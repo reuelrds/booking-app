@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
+import { WebIntent } from '@ionic-native/web-intent/ngx';
 
 import { BookingsPage } from './bookings.page';
 
@@ -21,6 +22,7 @@ const routes: Routes = [
     IonicModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [BookingsPage]
+  declarations: [BookingsPage],
+  providers: [WebIntent]
 })
 export class BookingsPageModule {}
