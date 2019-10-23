@@ -19,7 +19,7 @@
         return $dbConn;
 
   		} catch (PDOException $execption) {
-  			return $execption;
+  			throw $execption;
   		}
   	}
   }
