@@ -2,7 +2,7 @@
 
   class Location
   {
-  	public $id;
+  	public $location_id;
   	public $address;
   	public $lat;
   	public $lng;

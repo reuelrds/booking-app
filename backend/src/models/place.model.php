@@ -1,5 +1,7 @@
 <?php
-  class Place
+
+  require 'location.model.php';
+  class Place extends Location
   {
   	public $id;
   	public $title;
