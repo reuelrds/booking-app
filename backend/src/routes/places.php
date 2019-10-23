@@ -9,10 +9,8 @@ $placesHandler = function (Request $request, Response $response) {
 	return $response;
 };
 
-
 $placesRoutes = function (Group $group) use ($placesHandler) {
 	$group->get('', $placesHandler);
 };
-
 
 return $placesRoutes;

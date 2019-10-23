@@ -13,5 +13,4 @@ $bookingRoutes = function (Group $group) use ($bookingsHandler) {
 	$group->get('', $bookingsHandler);
 };
 
-
 return $bookingRoutes;
