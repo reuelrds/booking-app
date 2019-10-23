@@ -9,7 +9,7 @@ require '../src/config/database.php';
 
 $app = AppFactory::create();
 
-$routes = require '../src/routes/routes.php';
+$routes = require '../src/app.php';
 $routes($app);
 
 $app->run();
