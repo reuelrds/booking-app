@@ -8,7 +8,7 @@ $placesHandler = require __DIR__ . '/../controllers/places/places.controller.php
 
 $placesRoutes = function (Group $group) use ($placesHandler) {
   $group->get('', $placesHandler["getPlaces"]);
-  $group->get('/post', $placesHandler["postPlaces"]);
+  $group->get('/{placeId}', $placesHandler["getPlace"]);
 };
 
 return $placesRoutes;
