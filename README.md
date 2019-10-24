@@ -5,7 +5,9 @@
 This App allows users to book a room or offer their own place for booking, edit and view thier offers or bookings.
 
 - [Lodgesy - A Booking App](#lodgesy---a-booking-app)
-  * [The Design](#the-design)
+  * [The Design](#the-design)  
+    + [Design Prototype](#design-prototype)  
+    + [What does each page do?](#what-does-each-page-do?)
   * [To run Locally](#to-run-locally)
     + [Building the App](#building-the-app)
   * [Project Setup](#project-setup)
@@ -21,6 +23,10 @@ This App allows users to book a room or offer their own place for booking, edit 
 
 ## The Design
 
+### Design Prototype 
+![Website Design Wireframe](https://raw.githubusercontent.com/reuelrds/booking-app/master/assets/Website%20Design.png)
+
+### What does each page do?
 
 **_The Auth Page_** -  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The App starts with a Login Page. This page let's user register or Login. A user must register to use the app.
@@ -52,9 +58,6 @@ This App allows users to book a room or offer their own place for booking, edit 
 
 **_The Bookings Page_** -  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This page allows a user to view the list of the places that he has booked. This page can be reached by opening the side menu and tapping on _Your Bookings_ option.  
-
-&nbsp;  
-**_TODO:_** &nbsp;Attach Design Prototype Images.
 
 
 ## To run Locally
