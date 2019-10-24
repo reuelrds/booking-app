@@ -7,7 +7,7 @@ This App allows users to book a room or offer their own place for booking, edit 
 - [Lodgesy - A Booking App](#lodgesy---a-booking-app)
   * [The Design](#the-design)  
     + [Design Prototype](#design-prototype)  
-    + [What does each page do?](#what-does-each-page-do?)
+    + [What does each page do?](#what-does-each-page-do)
   * [To run Locally](#to-run-locally)
     + [Building the App](#building-the-app)
   * [Project Setup](#project-setup)
